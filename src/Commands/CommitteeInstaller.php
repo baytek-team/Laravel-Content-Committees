@@ -19,7 +19,7 @@ class CommitteeInstaller extends Installer
     protected $model = Committee::class;
     protected $seeder = CommitteeSeeder::class;
     protected $fakeSeeder = FakeDataSeeder::class;
-    protected $migrationPath = __DIR__.'/../resources/Database/Migrations';
+    protected $migrationPath = __DIR__.'/../database/migrations';
 
     public function shouldPublish()
     {
@@ -29,10 +29,7 @@ class CommitteeInstaller extends Installer
     public function shouldMigrate()
     {
         $pluginTables = [
-            env('DB_PREFIX', '').'contents',
-            env('DB_PREFIX', '').'content_meta',
-            env('DB_PREFIX', '').'content_histories',
-            env('DB_PREFIX', '').'content_relations',
+            env('DB_PREFIX', '').'content_user'
         ];
 
         return collect(array_map('reset', DB::select('SHOW TABLES')))

@@ -50,11 +50,31 @@ class FakeDataSeeder extends Seeder
     public function generateCommittees($total = 5)
     {
     	$content_type = content_id('content-type/committee');
+
+    	foreach (range(1, $total) as $index) {
+    		$committee = (factory(Committee::class)->make());
+            $committee->save();
+
+            $committee->saveRelation('content-type', $content_type);
+            $committee->saveRelation('parent-id', $content_type);
+    	}
     }
 
     public function populateCommitteeMembers($total = 3)
     {
-    	
+    	$committees = Committee::all();
+    	$members = Member::all();
+
+    	foreach ($committees as $committee) {
+    		foreach ($range(1, $total) as $index) {
+    			$member = $members->random();
+    		}
+    	}
+    }
+
+    public function generateWebpages($total = 3)
+    {
+
     }
 
     public function generateFolders($total = 50)
