@@ -24,7 +24,7 @@
         "baytek/laravel-content": "~1.2.0",
         "baytek/laravel-content-document": "~1.0.0",
         "baytek/laravel-content-webpage": "~1.2.0",
-        "baytek/laravel-user-member": "~1.0.0",
+        "baytek/laravel-user-member": "~1.0.0"
     },
     "post-install-cmd": [
         "php artisan install:committee"
