@@ -34,7 +34,7 @@ class FileController extends ContentController
      * @var [type]
      */
     protected $views = [
-        'edit' => 'edit',
+        'edit' => 'file.edit',
     ];
 
     protected $redirectsKey = 'committee';

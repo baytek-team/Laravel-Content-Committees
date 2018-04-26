@@ -69,7 +69,7 @@ class FolderController extends Controller
 
 
         $files = ($permission) ? Content::childrenOfType($folder->id, 'file')->withMeta(true)->withRestricted()->withStatus('r', File::APPROVED)->get() : collect([]);
-        $folders = ($permission) ? Content::childrenOfType($folder->id, 'resource-category')->withStatus('r', Folder::APPROVED)->get() : collect([]);
+        $folders = ($permission) ? Content::childrenOfType($folder->id, 'folder')->withStatus('r', Folder::APPROVED)->get() : collect([]);
 
     	return [
     		'folders' => $folders->each(function(&$self) use ($path) {
@@ -109,7 +109,7 @@ class FolderController extends Controller
     	$newFolder->save();
     	$newFolder->saveMetadata('author_id', Auth::user()->id);
     	$newFolder->saveRelation('parent-id', $folder->id);
-    	$newFolder->saveRelation('content-type', content('resource-category')->id);
+    	$newFolder->saveRelation('content-type', content('folder')->id);
 
         //Approve the folder
         $newFolder->onBit(Folder::APPROVED)->update();

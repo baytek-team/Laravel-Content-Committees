@@ -65,7 +65,7 @@ class CommitteeController extends ApiController
         }
 
         $files = ($permission) ? Content::childrenOfType($committee->id, 'file')->withMeta(true)->withRestricted()->withStatus('r', File::APPROVED)->get() : collect([]);
-        $folders = ($permission) ? Content::childrenOfType($committee, 'resource-category')->withStatus('r', Folder::APPROVED)->get() : collect([]);
+        $folders = ($permission) ? Content::childrenOfType($committee, 'folder')->withStatus('r', Folder::APPROVED)->get() : collect([]);
 
     	return [
     		'folders' => $folders->each(function(&$self) use ($path) {
