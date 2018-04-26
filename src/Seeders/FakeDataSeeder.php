@@ -34,6 +34,11 @@ class FakeDataSeeder extends Seeder
     ];
 
     /**
+     * Track all the committee folders, to use for populating files later
+     */
+    protected $committeeFolders;
+
+    /**
      * Run the database seeds.
      *
      * @return void
@@ -64,47 +69,74 @@ class FakeDataSeeder extends Seeder
     {
     	$committees = Committee::all();
     	$members = Member::all();
+    	$faker = Faker::create();
 
     	foreach ($committees as $committee) {
     		foreach ($range(1, $total) as $index) {
     			$member = $members->random();
+
+    			$committee->members()->save($member, [
+		            'title' => $faker->jobTitle(),
+		            'admin' => rand(0,1),
+		            'notifications' => rand(0,1),
+		            'sorting' => $index,
+		        ]);
     		}
     	}
     }
 
-    public function generateWebpages($total = 3)
+    public function generateWebpages($total = 5)
     {
+    	$content_type = content_id('content-type/webpage');
+    	$committees = Committee::all();
 
+    	foreach ($committees as $committee) {
+    		foreach ($range(1, rand(2,$total)) as $index) {
+    			$webpage = (factory(Webpage::class)->make());
+    			$webpage->save();
+
+    			$webpage->saveRelation('content-type', $content_type);
+    			$webpage->saveRelation('parent-id', $committee->id);
+    			$webpage->saveMetadata('author_id', 1);
+
+    			$webpage->onBit(Webpage::EXCLUDED)->update();
+    		}
+    	}
     }
 
     public function generateFolders($total = 50)
     {
         $content_type = content_id('content-type/folder');
+        $committees = Committee::all();
 
-        $folder_ids = collect([$content_type]);
+        $this->committeeFolders = collect([]);
 
-        foreach(range(1,$total) as $index) {
-            $folder = (factory(Folder::class)->make());
-            $folder->save();
+        foreach ($committees as $committee) {
+	        $folder_ids = collect([$committee->id]);
 
-            //Add relationships
-            $folder->saveRelation('content-type', $content_type);
-            $folder->saveRelation('parent-id', $folder_ids->random());
+	        foreach(range(1,$total) as $index) {
+	            $folder = (factory(Folder::class)->make());
+	            $folder->save();
 
-            //Add metadata
-            $folder->saveMetadata('author_id', 1);
+	            //Add relationships
+	            $folder->saveRelation('content-type', $content_type);
+	            $folder->saveRelation('parent-id', $folder_ids->random());
 
-            //Add ID to list of folders
-            $folder_ids->push($folder->id);
-        }
+	            //Add metadata
+	            $folder->saveMetadata('author_id', 1);
+
+	            //Add ID to list of folders
+	            $folder_ids->push($folder->id);
+
+	            //Save this folder to use for generating files
+	            $this->committeeFolders->push($folder);
+	        }
+	    }
     }
 
     public function generateFiles($total = 50)
     {
-        $faker = Faker::create();
-
         $content_type = content_id('content-type/file');
-        $folders = Folder::all();
 
         //Make sure the folder in storage exists
         if (!file_exists(storage_path('app/resources'))) {
@@ -121,7 +153,7 @@ class FakeDataSeeder extends Seeder
 
             //Add relationships
             $file->saveRelation('content-type', $content_type);
-            $file->saveRelation('parent-id', $folders->random()->id);
+            $file->saveRelation('parent-id', $this->committeeFolders->random()->id);
 
             //Add metadata
             $file->saveMetadata('author_id', 1);
