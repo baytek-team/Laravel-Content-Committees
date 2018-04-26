@@ -1,0 +1,40 @@
+{
+    "name": "baytek/laravel-content-committee",
+    "description": "Committee Content Provider",
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Yvon Viger",
+            "email": "yvon@baytek.ca"
+        },
+        {
+            "name": "Sarah Marinoff",
+            "email": "sarah@baytek.ca"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Baytek\\Laravel\\Content\\Types\\Committee\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": "5.5.*",
+        "baytek/laravel-content": "~1.2.0",
+        "baytek/laravel-content-document": "~1.0.0",
+        "baytek/laravel-content-webpage": "~1.2.0",
+        "baytek/laravel-user-member": "~1.0.0",
+    },
+    "post-install-cmd": [
+        "php artisan install:committee"
+    ],
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Baytek\\Laravel\\Content\\Types\\Committee\\CommitteeContentServiceProvider"
+            ]
+        }
+    }
+}
