@@ -7,7 +7,7 @@ use Baytek\Laravel\Content\Types\Committee\Models\Committee;
  */
 $factory->define(Committee::class, function (Faker\Generator $faker) {
 
-    $title = ucwords(implode(' ', $faker->unique()->words(rand(1,2))));
+    $title = ucwords(implode(' ', $faker->words(rand(1,3))));
 
     return [
         'key' => str_slug($title),
