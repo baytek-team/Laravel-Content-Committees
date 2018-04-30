@@ -4,9 +4,8 @@ namespace Baytek\Laravel\Content\Types\Committee\Events;
 
 use Auth;
 
-use App\ContentTypes\Committees\Models\Committee;
-use App\ContentTypes\Members\Models\Member;
-
+use Baytek\Laravel\Content\Types\Committee\Models\Committee;
+use Baytek\Laravel\Content\Types\Committee\Models\CommitteeMember;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -30,11 +29,8 @@ class CommitteeFeedbackSubmitted
         $committee = content('committee/' . $committee, true, Committee::class);
         $notificationMembers = $committee->members()->where('notifications', '1')->get();
 
-        // Add Joyel to get feedback, until they set up a group inbox
-        $notificationMembers->push(new Member(['name' => 'Feedback', 'email' => 'feedback@rogc.com']));
-
         // Get the member who submitted the form
-        $member = Member::find(Auth::user()->id)->load('restrictedMeta');
+        $member = CommitteeMember::find(Auth::user()->id)->load('restrictedMeta');
 
         $this->type = 'CommitteeFeedbackSubmitted';
         $this->title = $committee->title . ' Feedback Submission';

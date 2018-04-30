@@ -12,7 +12,7 @@ use Baytek\Laravel\Content\Types\Committee\Scopes\CommitteeScope;
 use Baytek\Laravel\Content\Types\Document\Models\File;
 use Baytek\Laravel\Content\Types\Document\Models\Folder;
 use Baytek\Laravel\Content\Types\Document\Scopes\ApprovedFolderScope;
-use Baytek\Laravel\Users\Members\Models\Member;
+use Baytek\Laravel\Content\Types\Committee\Models\CommitteeMember;
 use Illuminate\Http\Request;
 
 use App;
@@ -50,7 +50,7 @@ class FolderController extends ApiController
         }
 
         //See if user has permission to view the private files
-        $member = Member::find(\Auth::user()->id); //->load('meta')->load('committees')
+        $member = CommitteeMember::find(\Auth::user()->id); //->load('meta')->load('committees')
 
         $permission = false;
 

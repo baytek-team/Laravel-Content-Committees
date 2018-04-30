@@ -4,9 +4,8 @@ namespace Baytek\Laravel\Content\Types\Committee\Events;
 
 use Auth;
 
-use App\ContentTypes\Committees\Models\Committee;
-use App\ContentTypes\Members\Models\Member;
-
+use Baytek\Laravel\Content\Types\Committee\Models\Committee;
+use Baytek\Laravel\Content\Types\Committee\Models\CommitteeMember;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,7 +13,6 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
-
 
 class CommitteeDocumentAdded
 {
@@ -44,7 +42,7 @@ class CommitteeDocumentAdded
         }
 
         // Get the member who submitted the form
-        $member = Member::find(Auth::user()->id);
+        $member = CommitteeMember::find(Auth::user()->id);
 
         // The member who uploaded the document must also be notified?
         if (!$notificationMembers->contains($member)) {

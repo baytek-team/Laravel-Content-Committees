@@ -3,10 +3,10 @@
 namespace Baytek\Laravel\Content\Types\Committee\Models;
 
 use Baytek\Laravel\Content\Models\Content;
+use Baytek\Laravel\Content\Types\Committee\Models\CommitteeMember;
 use Baytek\Laravel\Content\Types\Committee\Scopes\ApprovedCommitteeScope;
 use Baytek\Laravel\Content\Types\Committee\Scopes\CommitteeScope;
 use Baytek\Laravel\Content\Types\Webpage\Webpage;
-use Baytek\Laravel\Users\Members\Models\Member;
 
 class Committee extends Content
 {
@@ -52,7 +52,7 @@ class Committee extends Content
 
     public function members()
     {
-        return $this->belongsToMany(Member::class, 'content_user', 'content_id', 'user_id')
+        return $this->belongsToMany(CommitteeMember::class, 'content_user', 'content_id', 'user_id')
             ->withPivot('title', 'admin', 'notifications', 'sorting')
             ->orderBy('sorting', 'asc');
     }

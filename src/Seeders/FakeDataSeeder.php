@@ -3,10 +3,10 @@
 namespace Baytek\Laravel\Content\Types\Committee\Seeders;
 
 use Baytek\Laravel\Content\Types\Committee\Models\Committee;
+use Baytek\Laravel\Content\Types\Committee\Models\CommitteeMember;
 use Baytek\Laravel\Content\Types\Document\Models\File;
 use Baytek\Laravel\Content\Types\Document\Models\Folder;
 use Baytek\Laravel\Content\Types\Webpage\Webpage;
-use Baytek\Laravel\Users\Members\Models\Member;
 use Illuminate\Database\Seeder;
 
 use Faker\Factory as Faker;
@@ -68,7 +68,7 @@ class FakeDataSeeder extends Seeder
     public function populateCommitteeMembers($total = 3)
     {
         $committees = Committee::all();
-        $members = Member::all();
+        $members = CommitteeMember::all();
         $faker = Faker::create();
 
         foreach ($committees as $committee) {
