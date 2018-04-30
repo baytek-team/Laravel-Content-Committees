@@ -17,7 +17,7 @@
         {{ ___('indicates root user') }}
     </div>
 @endif
-<table class="ui selectable table">
+<table class="ui selectable very basic table">
     <thead>
         <tr>
             <th>{{ ___('Name') }}</th>

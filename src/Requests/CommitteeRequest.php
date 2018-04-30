@@ -27,7 +27,6 @@ class CommitteeRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255|unique_in_type:committee',
-            'type' => 'required',
         ];
     }
 

@@ -26,7 +26,7 @@ class CommitteeSeeder extends Seeder
         [
             'key' => 'document-index',
             'title' => 'Committees',
-            'content' => 'committee.index',
+            'content' => 'committees.index',
             'meta' => [
                 'type' => 'route',
                 'class' => 'item',

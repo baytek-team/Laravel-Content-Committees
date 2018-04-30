@@ -1,7 +1,7 @@
 @extends('committees::template')
-@include('admin.resources.folder.dropzone', ['resource_id' => $committee->id])
+@include('committees::folder.dropzone', ['resource_id' => $committee->id])
 
-@section('content')
+@section('outer-content')
     <div class="ui divider"></div>
     <div class="ui hidden divider"></div>
 
@@ -81,10 +81,12 @@
             </h2>
             <div class="ui hidden divider"></div>
             <div class="ui small feed">
-                @include('committees::folder.table')
-            </div>
 
+            </div>
         </div>
     </div>
+@endsection
 
+@section('content')
+@include('committees::folder.table')
 @endsection

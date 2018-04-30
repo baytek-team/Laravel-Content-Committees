@@ -13,7 +13,7 @@ class CreateUserContentPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('content_user', function(Blueprint $table) {
+        Schema::create('content_user', function (Blueprint $table) {
             $table->integer('content_id')->unsigned();
             $table->integer('user_id')->unsigned();
 

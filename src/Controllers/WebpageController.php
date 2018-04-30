@@ -50,7 +50,7 @@ class WebpageController extends ContentController
         $this->viewData['index'] = [
             'committee' => $committee,
             // 'webpages' => $committee->webpages()->paginate(),
-            'webpages' => Content::childrenOfType($committee->id, 'webpage')->withStatus('r', Webpage::APPROVED)->paginate(),
+            'webpages' => Content::childrenOfType($committee->id, 'webpage')->withStatus(Webpage::APPROVED)->paginate(),
         ];
 
         return parent::contentIndex();
@@ -174,5 +174,4 @@ class WebpageController extends ContentController
 
         return redirect(route('committee.webpages.index', $committee));
     }
-
 }

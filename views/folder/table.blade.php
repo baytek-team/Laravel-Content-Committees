@@ -19,7 +19,7 @@
             margin:0;
         }
     </style>
-    <table class="ui selectable compact table ">
+    <table class="ui selectable very basic table">
         <thead>
             <tr>
                 <th>{{ ___('Folder Name') }}</th>

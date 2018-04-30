@@ -10,13 +10,13 @@ use Baytek\Laravel\Users\Members\Models\Member;
 
 class Committee extends Content
 {
-	/**
-	 * Content keys that will be saved to the relation tables
-	 * @var Array
-	 */
-	public $relationships = [
-		'content-type' => 'committee'
-	];
+    /**
+     * Content keys that will be saved to the relation tables
+     * @var Array
+     */
+    public $relationships = [
+        'content-type' => 'committee'
+    ];
 
     /**
      * The "booting" method of the model.
@@ -53,7 +53,7 @@ class Committee extends Content
     public function members()
     {
         return $this->belongsToMany(Member::class, 'content_user', 'content_id', 'user_id')
-        	->withPivot('title', 'admin', 'notifications', 'sorting')
+            ->withPivot('title', 'admin', 'notifications', 'sorting')
             ->orderBy('sorting', 'asc');
     }
 }

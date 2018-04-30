@@ -21,19 +21,19 @@ use Carbon\Carbon;
 use Response;
 use Validator;
 
-class FolderController extends Controller
+class FolderController extends ApiController
 {
     public function view($committee, $folderpath)
     {
         $path = '/committees/'.$committee.'/documents/'.$folderpath;
 
-    	// $folder = content("committee/$committee/$folder", true, Folder::class);
+        // $folder = content("committee/$committee/$folder", true, Folder::class);
 
         $folder = null;
         $items = (new Content)->getWithPath("committee/$committee/$folderpath");
 
         if (count($items) > 1) {
-            foreach( $items as $item ) {
+            foreach ($items as $item) {
                 $parents = $item->getParents();
 
                 if (isset($parents[3]) && $parents[3]->key == $committee) {
@@ -41,8 +41,7 @@ class FolderController extends Controller
                     break;
                 }
             }
-        }
-        else {
+        } else {
             $folder = $items->first();
         }
 
@@ -57,8 +56,7 @@ class FolderController extends Controller
 
         if ($member->hasRole('Root') || $member->hasRole('Administrator') || $member->hasRole('Manager')) {
             $permission = true;
-        }
-        else {
+        } else {
             foreach ($member->committees as $memberCommittee) {
                 if ($memberCommittee->key == $committee || $memberCommittee->key == 'board-of-directors') {
                     $permission = true;
@@ -71,17 +69,17 @@ class FolderController extends Controller
         $files = ($permission) ? Content::childrenOfType($folder->id, 'file')->withMeta(true)->withRestricted()->withStatus('r', File::APPROVED)->get() : collect([]);
         $folders = ($permission) ? Content::childrenOfType($folder->id, 'folder')->withStatus('r', Folder::APPROVED)->get() : collect([]);
 
-    	return [
-    		'folders' => $folders->each(function(&$self) use ($path) {
+        return [
+            'folders' => $folders->each(function (&$self) use ($path) {
                 $self->path = $path.'/'.$self->key;
-    		}),
-    		'files' => $files,
+            }),
+            'files' => $files,
             'path' => $path,
             'parent' => content($folder->parent()),
             'title' => $folder->title,
             'id' => $folder->id,
             'permission' => $permission,
-    	];
+        ];
     }
 
     public function create(Request $request, $committee, $folder)
@@ -95,21 +93,20 @@ class FolderController extends Controller
         //Get the folder, or else set the folder to the committee, for root level folder creation
         $key = preg_replace('/\/*folder\/create$/', '', $folder);
         if ($key) {
-    	   $folder = content("committee/$committee/" . $key, true, Folder::class);
-        }
-        else {
+            $folder = content("committee/$committee/" . $key, true, Folder::class);
+        } else {
             $folder = content($committee, true, Committee::class);
         }
 
         $request->merge(['key' => str_slug($request->title)]);
-    	$request->merge(['language' => App::getLocale()]);
+        $request->merge(['language' => App::getLocale()]);
 
         //Save folder and relationships
-    	$newFolder = new Folder($request->all());
-    	$newFolder->save();
-    	$newFolder->saveMetadata('author_id', Auth::user()->id);
-    	$newFolder->saveRelation('parent-id', $folder->id);
-    	$newFolder->saveRelation('content-type', content('folder')->id);
+        $newFolder = new Folder($request->all());
+        $newFolder->save();
+        $newFolder->saveMetadata('author_id', Auth::user()->id);
+        $newFolder->saveRelation('parent-id', $folder->id);
+        $newFolder->saveRelation('content-type', content('folder')->id);
 
         //Approve the folder
         $newFolder->onBit(Folder::APPROVED)->update();
@@ -133,9 +130,9 @@ class FolderController extends Controller
 
     public function destroy(Request $request, $committee, $folder)
     {
-    	$folder = content("committee/$committee/". preg_replace('/\/*folder\/delete$/', '', $folder), true, Folder::class)->load(['relations', 'relations.relation', 'relations.relationType']);
+        $folder = content("committee/$committee/". preg_replace('/\/*folder\/delete$/', '', $folder), true, Folder::class)->load(['relations', 'relations.relation', 'relations.relationType']);
 
-		getChildrenAndDelete($folder);
+        getChildrenAndDelete($folder);
 
         return response()->json([
             'status' => 'success',

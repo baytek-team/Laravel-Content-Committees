@@ -31,7 +31,7 @@ class MemberController extends ApiController
     public function index(Committee $committee)
     {
         return response()
-            ->view('admin.committee.members.index', [
+            ->view('committees::members.index', [
                 'committee' => $committee,
                 'members' => $committee->members()->paginate(),
             ], 200);
@@ -45,7 +45,7 @@ class MemberController extends ApiController
     public function create(Committee $committee)
     {
         return response()
-            ->view('admin.committee.members.create', [
+            ->view('committees::members.create', [
                 'committee' => $committee,
                 'members' => Member::all()->whereNotIn('id', $committee->members->pluck('id')),
                 'member' => new Member,
@@ -84,7 +84,7 @@ class MemberController extends ApiController
     public function edit(Committee $committee, Member $member)
     {
         return response()
-            ->view('admin.committee.members.edit', [
+            ->view('committees::members.edit', [
                 'committee' => $committee,
                 'members' => Member::all()->whereNotIn('id', $committee->members->pluck('id')),
                 'member' => $member,

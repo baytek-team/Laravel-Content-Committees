@@ -32,10 +32,10 @@ class CommitteeController extends ContentController
      * @var [type]
      */
     protected $views = [
-        'index' => 'committee.index',
-        'create' => 'committee.create',
-        'edit' => 'committee.edit',
-        'show' => 'committee.show'
+        'index' => 'index',
+        'create' => 'create',
+        'edit' => 'edit',
+        'show' => 'show'
     ];
 
     protected $redirectsKey = 'committee';
@@ -129,14 +129,14 @@ class CommitteeController extends ContentController
         $folders = Content::childrenOfType($committee->id, 'folder')
             ->withRelationships()
             ->withRestricted()
-            ->withStatus('r', Content::APPROVED)
+            ->withStatus(Content::APPROVED)
             ->get();
 
         $files = Content::childrenOfType($committee->id, 'file')
             ->withRelationships()
             ->withRestricted()
-            ->withStatus('r', Content::APPROVED)
-            ->get(); 
+            ->withStatus(Content::APPROVED)
+            ->get();
 
         $this->viewData['show'] = [
             'folders' => $folders,

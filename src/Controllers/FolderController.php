@@ -25,17 +25,17 @@ class FolderController extends ContentController
     protected $model = Folder::class;
     // protected $request = EventRequest::class;
 
-    protected $viewPrefix = 'admin/committee';
+    protected $viewPrefix = 'committees::';
 
     /**
      * List of views this content type uses
      * @var [type]
      */
     protected $views = [
-        'index' => 'folder.index',
-        'create' => 'folder.create',
-        'edit' => 'folder.edit',
-        'show' => 'folder.index'
+        'index' => 'index',
+        'create' => 'create',
+        'edit' => 'edit',
+        'show' => 'index'
     ];
 
     protected $redirectsKey = 'committee';
@@ -62,14 +62,14 @@ class FolderController extends ContentController
         $folders = Content::childrenOfType($committee->id, 'folder')
             ->withRelationships()
             ->withRestricted()
-            ->withStatus('r', Content::APPROVED)
+            ->withStatus(Content::APPROVED)
             ->get();
 
         $files = Content::childrenOfType($committee->id, 'file')
             ->withRelationships()
             ->withRestricted()
-            ->withStatus('r', Content::APPROVED)
-            ->get(); 
+            ->withStatus(Content::APPROVED)
+            ->get();
 
         $this->viewData['index'] = [
             'current_category_id' => $committee->id,
@@ -120,8 +120,7 @@ class FolderController extends ContentController
 
         if ($request->parent_id == $committee->id) {
             return redirect(route('committees.folders.index', $committee));
-        }
-        else {
+        } else {
             return redirect(route('committees.folders.show', [$committee, $request->parent_id]));
         }
     }
@@ -187,8 +186,7 @@ class FolderController extends ContentController
 
         if ($request->parent_id == $committee->id) {
             return redirect(route('committees.folders.index', $committee));
-        }
-        else {
+        } else {
             return redirect(route('committees.folders.show', [$committee, $request->parent_id]));
         }
     }
@@ -203,14 +201,14 @@ class FolderController extends ContentController
         $folders = Content::childrenOfType($folder->id, 'folder')
             ->withRelationships()
             ->withRestricted()
-            ->withStatus('r', Content::APPROVED)
+            ->withStatus(Content::APPROVED)
             ->get();
 
         $files = Content::childrenOfType($folder->id, 'file')
             ->withRelationships()
             ->withRestricted()
-            ->withStatus('r', Content::APPROVED)
-            ->get(); 
+            ->withStatus(Content::APPROVED)
+            ->get();
 
         $this->viewData['show'] = [
             'current_category_id' => $folder->id,
@@ -240,10 +238,8 @@ class FolderController extends ContentController
 
         if ($parent && $parent->relationships()->get('content_type') == 'folder') {
             return redirect(route('committees.folders.show', [$committee, $parent]));
-        }
-        else {
+        } else {
             return redirect(route('committees.folders.index', $committee));
         }
     }
-
 }
