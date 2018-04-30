@@ -10,10 +10,6 @@
             'prepend' => '<i class="user add icon"></i>',
             'type' => 'route',
         ])
-
-        {{-- <a class="item" href="{{ action('ContentTypes\Members\Controllers\AdminController@create') }}">
-            {{ ___('Add Member') }}
-        </a> --}}
     </div>
 @endsection
 
