@@ -56,7 +56,7 @@
             @foreach($files as $item)
                 <tr data-category-id="{{ $item->id }}">
                     <td class="resource-details">
-                        <i class="{{ \App\ContentTypes\Resources\Models\File::getIconCssClass($item->getMeta('original')) }}"></i>
+                        <i class="{{ \Baytek\Laravel\Content\Types\Document\Models\File::getIconCssClass($item->getMeta('original')) }}"></i>
                         <a class="item" href="{{ route('committees.file.download', [$committee, $item]) }}">
                             {{ $item->title }}
                         </a>
