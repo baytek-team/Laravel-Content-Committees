@@ -72,9 +72,10 @@ class FakeDataSeeder extends Seeder
         $faker = Faker::create();
 
         foreach ($committees as $committee) {
-            foreach (range(1, $total) as $index) {
-                $member = $members->random();
+            //Choose some random members to get added to the committee
+            $committeeMembers = $members->random($total);
 
+            foreach ($committeeMembers as $member) {
                 $committee->members()->save($member, [
                     'title' => $faker->jobTitle(),
                     'admin' => rand(0, 1),
