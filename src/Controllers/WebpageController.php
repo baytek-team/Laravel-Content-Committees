@@ -51,6 +51,7 @@ class WebpageController extends ContentController
             'committee' => $committee,
             // 'webpages' => $committee->webpages()->paginate(),
             'webpages' => Content::childrenOfType($committee->id, 'webpage')->withStatus(Webpage::APPROVED)->paginate(),
+            'parent' => false,
         ];
 
         return parent::contentIndex();
@@ -66,6 +67,7 @@ class WebpageController extends ContentController
     {
         $this->viewData['create'] = [
             'committee' => $committee,
+            'parent' => $committee
         ];
 
         return parent::contentCreate();
@@ -110,6 +112,7 @@ class WebpageController extends ContentController
     {
         $this->viewData['edit'] = [
             'committee' => $committee,
+            'parent' => $committee
         ];
 
         return parent::contentEdit($webpage);
@@ -155,6 +158,7 @@ class WebpageController extends ContentController
 
         $this->viewData['show'] = [
             'categories' => $categories,
+            'parent' => $committee
         ];
 
         return parent::contentShow($webpage->id);
