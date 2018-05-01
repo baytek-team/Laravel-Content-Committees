@@ -66,8 +66,8 @@ class FolderController extends ApiController
         }
 
 
-        $files = ($permission) ? Content::childrenOfType($folder->id, 'file')->withMeta(true)->withRestricted()->withStatus('r', File::APPROVED)->get() : collect([]);
-        $folders = ($permission) ? Content::childrenOfType($folder->id, 'folder')->withStatus('r', Folder::APPROVED)->get() : collect([]);
+        $files = ($permission) ? Content::childrenOfType($folder->id, 'file')->withMeta(true)->withRestricted()->withStatus(File::APPROVED)->get() : collect([]);
+        $folders = ($permission) ? Content::childrenOfType($folder->id, 'folder')->withStatus(Folder::APPROVED)->get() : collect([]);
 
         return [
             'folders' => $folders->each(function (&$self) use ($path) {
