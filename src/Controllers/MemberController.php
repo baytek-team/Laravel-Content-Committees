@@ -62,7 +62,7 @@ class MemberController extends ApiController
      */
     public function store(Committee $committee, Request $request)
     {
-        $member = Member::find($request->member);
+        $member = CommitteeMember::find($request->member);
 
         $committee->members()->save($member, [
             'title' => $request->title ?: '',
