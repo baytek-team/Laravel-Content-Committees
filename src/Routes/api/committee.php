@@ -14,3 +14,7 @@ Route::get('{committee}/documents/{folder?}/{file}', 'FileController@view')->whe
 Route::get('{committee}/documents/{folder}', 'FolderController@view')->where(['folder' => '.*']);
 
 Route::post('{committee}/feedback', 'CommitteeController@feedback');
+
+//Webpage
+Route::get('/pages/{category}', 'WebpageController@categories')
+	->where(['category' => '.*']);
