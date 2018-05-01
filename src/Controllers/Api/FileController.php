@@ -27,7 +27,7 @@ class FileController extends ApiController
     	$folder = preg_replace('/\/*file$/', '', $folder);
         
         $path = ($folder) ? "committee/{$committee}/{$folder}/{$file}" : "committee/{$committee}/{$file}";
-    	$file = (new File)->getWithPath($path)->first()->load('meta');
+    	$file = File::withPath($path)->first()->load('meta');
 
         $allowDownload = true;
 
