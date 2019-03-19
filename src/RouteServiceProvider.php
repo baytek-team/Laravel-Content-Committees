@@ -52,8 +52,10 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAdminRoutes()
     {
         $routes = 'routes/admin/committee.php';
+        $key = config('committee.routes.key', 'committees');
+
         if(file_exists(base_path($routes))){
-            Route::prefix('admin/committees')
+            Route::prefix('admin/' . $key)
                  ->middleware(['admin'])
                  ->namespace(Controllers::class)
                  ->group(base_path($routes));
@@ -70,8 +72,10 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         $routes = 'routes/api/committee.php';
+        $key = config('committee.routes.key', 'committees');
+
         if(file_exists(base_path($routes))){
-            Route::prefix('api/committees')
+            Route::prefix('api/' . $key)
                  ->middleware(['api', 'auth'])
                  ->namespace(Controllers\Api::class)
                  ->group(base_path($routes));

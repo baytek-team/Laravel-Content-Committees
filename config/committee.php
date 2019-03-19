@@ -2,6 +2,7 @@
 
 return [
 	'routes' => [
-		'enabled' => true
+		'enabled' => true,
+		'key' => 'committees'
 	]
 ];
