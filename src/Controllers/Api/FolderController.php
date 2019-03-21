@@ -25,7 +25,7 @@ class FolderController extends ApiController
 {
     public function view($committee, $folderpath)
     {
-        $path = config('committee.routes.key', 'committee').'/'.$committee.'/documents/'.$folderpath;
+        $path = config('committee.routes.key', 'committees').'/'.$committee.'/documents/'.$folderpath;
 
         // $folder = content("committee/$committee/$folder", true, Folder::class);
 
