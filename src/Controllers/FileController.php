@@ -27,7 +27,7 @@ class FileController extends ContentController
      */
     protected $model = File::class;
 
-    protected $viewPrefix = 'admin/committee';
+    protected $viewNamespace = 'committees';
 
     /**
      * List of views this content type uses
@@ -157,7 +157,7 @@ class FileController extends ContentController
     public function delete(Request $request, Committee $committee, $file)
     {
         $file = $this->bound($file);
-        
+
         $file->offBit(File::APPROVED)->onBit(File::DELETED)->update();
         \Storage::delete($file->getMeta('file'));
         $file->delete();

@@ -25,9 +25,9 @@ class FileController extends ApiController
     public function view($committee, $folder, $file)
     {
     	$folder = preg_replace('/\/*file$/', '', $folder);
-        
         $path = ($folder) ? "committee/{$committee}/{$folder}/{$file}" : "committee/{$committee}/{$file}";
-    	$file = File::withPath($path)->first()->load('meta');
+
+        $file = File::withRestricted()->withPath($path)->with('meta')->first();
 
         $allowDownload = true;
 

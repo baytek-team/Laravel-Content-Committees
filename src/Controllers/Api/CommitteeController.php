@@ -44,7 +44,7 @@ class CommitteeController extends ApiController
 
     public function documents($committee)
     {
-        $path = '/committees/'.$committee.'/documents';
+        $path = config('committee.routes.key', 'committee').'/'.$committee.'/documents';
     	$committee = content('committee/' . $committee);
 
         //See if user has permission to view the private files
