@@ -8,6 +8,7 @@ use Baytek\Laravel\Content\Events\ContentEvent;
 use Baytek\Laravel\Content\Models\Content;
 use Baytek\Laravel\Content\Types\Committee\Models\Committee;
 use Baytek\Laravel\Content\Types\Committee\Models\CommitteeMember;
+use Baytek\Laravel\Users\Members\Roles\Member;
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
@@ -47,7 +48,7 @@ class MemberController extends ApiController
         return response()
             ->view('committees::members.create', [
                 'committee' => $committee,
-                'members' => CommitteeMember::all()->whereNotIn('id', $committee->members->pluck('id')),
+                'members' => Member::all()->whereNotIn('id', $committee->members->pluck('id')),
                 'member' => new CommitteeMember,
                 'pivot' => (object) ['admin' => '', 'title' => '', 'notifications' => '']
             ], 200);
@@ -86,7 +87,7 @@ class MemberController extends ApiController
         return response()
             ->view('committees::members.edit', [
                 'committee' => $committee,
-                'members' => CommitteeMember::all()->whereNotIn('id', $committee->members->pluck('id')),
+                'members' => Member::all()->whereNotIn('id', $committee->members->pluck('id')),
                 'member' => $member,
                 'pivot' => $committee->members->find($member)->pivot
             ], 200);
