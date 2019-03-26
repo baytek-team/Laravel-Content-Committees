@@ -43,7 +43,7 @@
                 <td class="collapsing right aligned">
                     <div class="ui text compact menu">
                         <a href="{{ route('committees.members.edit', ['member' => $member]) }}" class="item">
-                            <i class="pencil icon"></i> {{ ___('Edit') }}
+                            <i class="edit icon"></i> {{ ___('Edit') }}
                         </a>
 
                         @if (Auth::user()->hasRole([\Baytek\Laravel\Users\Roles\Root::ROLE]))

@@ -1,7 +1,7 @@
 @extends('committees::members.template')
 
 @section('page.head.menu')
-    <div class="ui secondary menu">
+    <div class="ui secondary contextual menu">
         @link(__('Add Member'), [
             'location' => 'committees.members.create',
             'model' => [
@@ -31,7 +31,7 @@
                     <div class="ui text compact menu">
                         @can('update', $member)
                         <a href="{{ route('committees.members.edit', ['committee' => $committee, 'member' => $member]) }}" class="item">
-                            <i class="pencil icon"></i> {{ ___('Edit') }}
+                            <i class="edit icon"></i> {{ ___('Edit') }}
                         </a>
                         @endcan
 

@@ -1,7 +1,7 @@
 @extends('committees::template')
 
 @section('page.head.menu')
-    <div class="ui secondary menu">
+    <div class="ui secondary contextual menu">
         @if(Auth::user()->can('Create Committee'))
             <a class="item" href="{{ route('committees.create') }}">
                 <i class="add icon"></i>{{ ___('Add Committee') }}
@@ -29,7 +29,7 @@
                 <td class="right aligned collapsing">
                     <div class="ui compact text menu">
                         <a class="item" href="{{ route('committees.edit', $committee->id) }}">
-                            <i class="pencil icon"></i>
+                            <i class="edit icon"></i>
                             {{ ___('Edit') }}
                         </a>
                         @button(___('Delete'), [

@@ -2,9 +2,9 @@
 
 namespace Baytek\Laravel\Content\Types\Committee\Models;
 
-use Baytek\Laravel\Users\Members\Models\Member;
-use Baytek\Laravel\Users\Members\Scopes\ApprovedMemberScope;
-use Baytek\Laravel\Users\Members\Scopes\MetadataScope;
+use Baytek\Laravel\Users\Member;
+use Baytek\Laravel\Users\Scopes\ApprovedMemberScope;
+use Baytek\Laravel\Users\Scopes\MetadataScope;
 use Baytek\Laravel\Users\User;
 
 use Illuminate\Support\Facades\Request;

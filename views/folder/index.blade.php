@@ -2,7 +2,7 @@
 @include('committees::folder.dropzone', ['resource_id' => $current_category_id])
 
 @section('page.head.menu')
-    <div class="ui secondary menu">
+    <div class="ui secondary contextual menu">
         {{--  href="{{ route('resource.folder.resource.create', $current_category_id) }}" --}}
         <a class="item dz-clickable">
             <i class="file text icon"></i>
