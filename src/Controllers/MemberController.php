@@ -8,7 +8,7 @@ use Baytek\Laravel\Content\Events\ContentEvent;
 use Baytek\Laravel\Content\Models\Content;
 use Baytek\Laravel\Content\Types\Committee\Models\Committee;
 use Baytek\Laravel\Content\Types\Committee\Models\CommitteeMember;
-use Baytek\Laravel\Users\Member;
+use Baytek\Laravel\Users\Roles\Member;
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
