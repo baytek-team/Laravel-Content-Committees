@@ -30,7 +30,7 @@ class FolderController extends ApiController
         // $folder = content("committee/$committee/$folder", true, Folder::class);
 
         $folder = null;
-        $items = Content::withPath("committee/$committee/$folderpath");
+        $items = Content::withPath("committee/$committee/$folderpath")->get();
 
         if (count($items) > 1) {
             foreach ($items as $item) {
